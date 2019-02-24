@@ -1,0 +1,19 @@
+{
+  "name": "cloud_endpoints",
+  "version": "1.0.0",
+  "description": "Sample Web Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://source.developers.google.com/p/kolban-224119/r/cloud_endpoints"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
