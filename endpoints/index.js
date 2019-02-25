@@ -24,14 +24,14 @@ app.get('/customer/:customerId', (req, res) => {
 app.post("/customer", (req, res) => {
   console.log(`Request: POST/customer ${JSON.stringify(req.body)}`);
   customers[req.body.id] = req.body;
-  res.status(200).end();
+  res.status(200).send("Customer added.");
 });
 
 app.delete("/customer/:customerId", (req, res) => {
   const customerId = req.params.customerId;
   console.log(`DELETE /customer/${customerId}`);
   delete customers[customerId];
-  res.status(200).end();
+  res.status(200).send("Customer deleted.");
 });
 
 app.listen(port, () => {
