@@ -9,10 +9,10 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "cl-test-customers.endpoints.kolban-224119.cloud.goog"
+host: "myservice.endpoints.PROJECT_ID.cloud.goog"
 x-google-endpoints:
-  - name: "cl-test-customers.endpoints.kolban-224119.cloud.goog"
-    target: "35.184.39.57"
+  - name: "myservice.endpoints.PROJECT_ID.cloud.goog"
+    target: "INSTANCE_IP_ADDRESS"
 
 
 schemes:
