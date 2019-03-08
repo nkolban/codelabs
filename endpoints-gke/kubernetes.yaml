@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: esp-echo
+spec:
+  ports:
+  - port: 80
+    targetPort: 8081
+    protocol: TCP
+    name: http
+  selector:
+    app: esp-echo
+  type: LoadBalancer
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: esp-echo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: esp-echo
+    spec:
+      containers:
+      # [START esp]
+      - name: esp
+        image: gcr.io/endpoints-release/endpoints-runtime:1
+        args: [
+          "--http_port", "8081",
+          "--backend", "127.0.0.1:8080",
+          "--service", "myservice.endpoints.[PROJECT_ID].cloud.goog",
+          "--rollout_strategy", "managed",
+        ]
+      # [END esp]
+        ports:
+          - containerPort: 8081
+      - name: sample-app
+        image: gcr.io/[PROJECT_ID]/sample_app
+        ports:
+          - containerPort: 8080

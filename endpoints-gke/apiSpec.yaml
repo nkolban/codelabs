@@ -1,0 +1,110 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a sample application."
+  version: "1.0.0"
+  title: "My Sample"
+  contact:
+    email: "kolban@google.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "myservice.endpoints.PROJECT_ID.cloud.goog"
+x-google-endpoints:
+  - name: "myservice.endpoints.PROJECT_ID.cloud.goog"
+    target: "INSTANCE_IP_ADDRESS"
+
+
+schemes:
+  - "http"
+x-google-management:
+  metrics:
+    - name: "MyMetric"
+      displayName: "MyMetric Display Name"
+      valueType: INT64
+      metricKind: DELTA
+  quota:
+    limits:
+      - name: "MyLimit"
+        metric: "MyMetric"
+        unit: "1/min/{project}"
+        values:
+          STANDARD: 10
+paths:
+  /customer:
+    post:
+      summary: "Create a new customer."
+      description: "Create a new customer!"
+      operationId: "createCustomer"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "The customer to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/Customer"
+      responses:
+        405:
+          description: "Invalid input"
+
+  /customer/{customerId}:
+    get:
+      operationId: "getCustomer"
+      summary: "Retrieve the details of the customer"
+      description: "Retrieve the details of the customer"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - $ref: "#/parameters/customerId"
+      x-google-quota:
+        metricCosts:
+          MyMetric: 1
+      responses:
+        200:
+          description: "The details of the customer"
+          schema:
+            $ref: "#/definitions/Customer"
+        404:
+          description: "Customer not found"
+    delete:
+      operationId: "deleteCustomer"
+      parameters:
+        - $ref: "#/parameters/customerId"
+      responses:
+        200:
+          description: "OK"
+
+definitions:
+  Customer:
+    type: object
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      loyalty:
+        type: "string"
+
+parameters:
+  customerId:
+    in: "path"
+    name: "customerId"
+    required: true
+    type: "string"
+    maxLength: 3
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
+
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"

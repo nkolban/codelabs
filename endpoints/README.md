@@ -1,1 +1,1 @@
-# Artifacts for Endpoints codelab
+# Artifacts for Endpoints codelab using CE.
